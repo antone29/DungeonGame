@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class weapon : Collidable
+public class Weapon : Collidable
 {
     // Damage struct
     public int damagePoint = 1;
@@ -32,6 +32,28 @@ public class weapon : Collidable
                 Swing();
             }
         }
+    }
+
+    protected override void OnCollide(Collider2D coll)
+    {
+        if (coll.tag == "Fighter") 
+        {
+            if (coll.name == "Player")
+                return;
+
+            // Create a new damage object, then we'll send it to the fighter we've hit
+            Damage dmg = new Damage()
+            {
+                damangeAmount = damagePoint,
+                origin = transform.position,
+                pushForce = pushForce
+            };
+
+            coll.SendMessage("ReceiveDamage", dmg); //this is sending over the "RecieveDamage" function to the thing you just hit
+           
+            
+        }
+        
     }
 
     private void Swing()
