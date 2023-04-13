@@ -26,7 +26,7 @@ public class Fighter : MonoBehaviour
             hitpoint -= dmg.damangeAmount;
             PushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
 
-            GameManager.instance.ShowText(dmg.damangeAmount.ToString(), 15, Color.red, transform.position, Vector3.zero, 0.5f);
+            GameManager.instance.ShowText(dmg.damangeAmount.ToString(), 25, Color.red, transform.position, Vector3.zero, 0.5f); 
 
             if(hitpoint <= 0)
             {
