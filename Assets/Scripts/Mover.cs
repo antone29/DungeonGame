@@ -5,10 +5,10 @@ using UnityEngine;
 //class is abstract because it should be inherited from, never used directly
 public abstract class Mover : Fighter
 {
-     private BoxCollider2D boxCollider;
+    protected BoxCollider2D boxCollider;
 
-    private Vector3 moveDelta;
-    private RaycastHit2D hit;
+    protected Vector3 moveDelta;
+    protected RaycastHit2D hit;
     protected float ySpeed = 0.75f;
     protected float xSpeed = 1.0f;
 
@@ -17,10 +17,11 @@ public abstract class Mover : Fighter
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
+   // 3:43 fixed update?
 
     protected virtual void UpdateMotor(Vector3 input){
         //reset the moveDelta
-        moveDelta = new Vector3(input.x * xSpeed, input.y * ySpeed, 0);
+        moveDelta = new Vector3(input.x * xSpeed, input.y * ySpeed, 0); 
 
         //swap sprite direction
 
