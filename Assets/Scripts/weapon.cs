@@ -12,13 +12,15 @@ public class Weapon : Collidable
     public int weaponLevel = 0; //weapon level is upgradable
     private SpriteRenderer spriteRenderer; //private so needs to be assigned in start, already technically delcared but we are gonna override it
 
-    // Swing
+    // Swing - animation code starts around 4:15
+    private Animator anim;
     private float cooldown = 0.5f;
     private float lastSwing;
 
     protected override void Start() {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     protected override void Update() {
@@ -58,7 +60,9 @@ public class Weapon : Collidable
 
     private void Swing()
     {
-        Debug.Log("Swing");
+        anim.SetTrigger("Swing");
+
+        
     }
 
 }
