@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI
+using UnityEngine.UI;
+using TMPro;
 
 public class CharacterMenu : MonoBehaviour
 {
     
     //Text fields
-    public Text levelText, hitpointText, pesosText, upgradeCostText, xpText;
+    public TextMeshProUGUI levelText, hitpointText, pesosText, upgradeCostText, xpText;
 
     //Logic
     private int currentCharacterSelection = 0;
     public Image characterSelectionSprite;
-    public Image weaponSprite;
+    public Image weaponSprite; 
     public RectTransform xpBar;
 
     // Character Selection
@@ -49,7 +50,10 @@ public class CharacterMenu : MonoBehaviour
     }
 
     public void OnUpgradeClick(){
-        //
+        if(GameManager.instance.TryUpgradeWeapon())
+        {
+            UpdateMenu();
+        }
     }
 
     //Update character information
@@ -57,16 +61,21 @@ public class CharacterMenu : MonoBehaviour
     public void UpdateMenu()
     {
         //Weapon
-        weaponSprite.sprite = GameManager.instance.weaponSprite[0];
-        upgradeCostText.text = "NOT IMPLEMENTED";
+        weaponSprite.sprite = GameManager.instance.weaponSprites[GameManager.instance.weapon.weaponLevel];
+        if (GameManager.instance.weapon.weaponLevel == GameManager.instance.weaponPrices.Count){
+            upgradeCostText.text = "NOT IMPLEMENTED";
+        } else {
+            upgradeCostText.text = GameManager.instance.weaponPrices[GameManager.instance.weapon.weaponLevel].ToString();
+        }
+        
 
         //Meta
         hitpointText.text = GameManager.instance.player.hitpoint.ToString();
         pesosText.text = GameManager.instance.pesos.ToString();
-        levelText = "NOT IMPLEMENTED";
+        levelText.text = "NOT IMPLEMENTED";
 
         //xp Bar
         xpText.text = "NOT IMPLEMENTED";
-        xpBar.localScale = new Vector3(0.5, 0, 0);
+        xpBar.localScale = new Vector3(0.5f, 0, 0);
     }
 }
