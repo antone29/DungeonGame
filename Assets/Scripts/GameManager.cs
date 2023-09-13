@@ -45,7 +45,38 @@ public class GameManager : MonoBehaviour
         floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
     }
 
+
     //Upgrade Weapon
+    public int GetCurrentLevel()
+    {
+        int r = 0;
+        int add = 0;
+
+        while (experience >= add)
+        {
+            add += xpTable[r];
+            r++;
+
+            if (r ==xpTable.Count) // Max Level
+                return r;
+        }
+
+        return r;
+    }
+
+    public int GetXpToLevel(int level)
+    {
+        int r = 0;
+        int xp = 0;
+
+        while (r <level)
+        {
+            xp += xpTable[r];
+            r++;
+        }
+        return xp;
+    }
+
 
     public bool TryUpgradeWeapon()
     {
